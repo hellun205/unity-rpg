@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Managers : MonoBehaviour
 {
-  private static Managers Instance;
+  private static Managers s_Instance;
 
-  public static Managers GetInstance()
+  public static Managers Instance
   {
-    Init();
-    return Instance;
+    get
+    {
+      Init();
+      return s_Instance;
+    }
   }
 
   public void Start()
@@ -20,7 +22,7 @@ public class Managers : MonoBehaviour
 
   private static void Init()
   {
-    if (Instance is not null) return;
+    if (s_Instance is not null) return;
     
     var go = GameObject.Find("@Managers");
     if (go is  null)
@@ -30,6 +32,6 @@ public class Managers : MonoBehaviour
     }
 
     DontDestroyOnLoad(go);
-    Instance = go.GetComponent<Managers>();
+    s_Instance = go.GetComponent<Managers>();
   }
 }
