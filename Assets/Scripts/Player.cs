@@ -1,16 +1,37 @@
 using System;
+using System.Collections.Generic;
+using Extend;
 using Manager;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : ExtendMonoBehaviour
 {
   public float moveSpeed = 1f;
+  private Vector3 _yAngle;
 
-  private void Update()
+  protected override void Awake()
   {
-    var h = Input.GetAxis("Horizontal");
-    var v = Input.GetAxis("Vertical");
+    base.Awake();
+    UseKeys(new[] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D });
+  }
 
-    transform.Translate(new Vector3(h , 0, v )  * Time.deltaTime * moveSpeed);
+  protected override void OnKeyPress(KeyCode key)
+  {
+    _yAngle = key switch
+    {
+      KeyCode.W => Vector3.forward,
+      KeyCode.A => Vector3.left,
+      KeyCode.S => Vector3.back,
+      KeyCode.D => Vector3.right,
+      _ => _yAngle
+    };
+    
+    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_yAngle), Time.deltaTime * 10f);
+    transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+  }
+
+  private void Walk()
+  {
+    transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
   }
 }
