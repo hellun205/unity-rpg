@@ -11,6 +11,7 @@ namespace Player
 
     private void Awake()
     {
+      Managers.Init();
       Managers.Input.KeyAction += OnKey;
     }
 

@@ -26,7 +26,7 @@ namespace Manager
       Init();
     }
 
-    private static void Init()
+    public static void Init()
     {
       if (s_Instance is not null) return;
 
