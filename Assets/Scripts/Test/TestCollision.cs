@@ -16,7 +16,6 @@ namespace Test
 
         if (Physics.Raycast(ray, out var hit, 100, mask))
         {
-          Debug.Log($"Raycast camera @{hit.collider.gameObject.name}");
         }
 
       }
