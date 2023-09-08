@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 225632661}
   - component: {fileID: 225632663}
   m_Layer: 5
-  m_Name: ItemIcon
+  m_Name: itemicon*
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1039,7 +1039,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7157765380097168124, guid: 10e33b0487a70ea4894416191817d62f, type: 3}
       propertyPath: m_Name
-      value: PointText
+      value: point_text*
       objectReference: {fileID: 0}
     - target: {fileID: 7157765380405808662, guid: 10e33b0487a70ea4894416191817d62f, type: 3}
       propertyPath: m_Name
@@ -1131,11 +1131,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7157765380448235250, guid: 10e33b0487a70ea4894416191817d62f, type: 3}
       propertyPath: m_Name
-      value: ScoreText
+      value: score_text*
       objectReference: {fileID: 0}
     - target: {fileID: 7157765381807673205, guid: 10e33b0487a70ea4894416191817d62f, type: 3}
       propertyPath: m_Name
-      value: PointButton
+      value: point_button*
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10e33b0487a70ea4894416191817d62f, type: 3}

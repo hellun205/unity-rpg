@@ -15,11 +15,6 @@ namespace Util
         .GetComponentsInChildren<Transform>()
         .Where(x => x.name.Contains(findChr))
         .ToDictionary(x => x.name.Replace(findChr.ToString(), ""), x => x.gameObject);
-
-      foreach (var (key, value) in objects)
-      {
-        Debug.Log($"{key}, {value}");
-      }
     }
 
     public T Get<T>(string name) where T : Component
