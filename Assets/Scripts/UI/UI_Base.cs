@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Util;
 using Object = UnityEngine.Object;
 
 namespace UI
@@ -44,5 +46,19 @@ namespace UI
     
     protected GameObject GetGameObject(int idx) { return Get<GameObject>(idx); }
     protected Image GetImage(int idx) { return Get<Image>(idx); }
+    public static void AddUIEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
+    {
+      UI_EventHandler evt = Utils.GetOrAddComponent<UI_EventHandler>(go);
+
+      switch (type)
+      {
+        case Define.UIEvent.Click :
+          evt.OnClickHandler += action;
+          break;
+        case Define.UIEvent.Drag :
+          evt.OnDragHandler += action;
+          break;
+      }
+    }
   }
 }
