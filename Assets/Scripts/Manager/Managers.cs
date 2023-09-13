@@ -1,4 +1,5 @@
 using System;
+using UI;
 using UnityEngine;
 
 namespace Manager
@@ -20,6 +21,7 @@ namespace Manager
 
     public static InputManager Input => s_input ??= new InputManager();
     public static ResourceManager Resource => s_resource ??= new ResourceManager();
+    public static UI_Manager UI { get; private set; }
 
     public void Start()
     {
@@ -29,6 +31,7 @@ namespace Manager
     public static void Init()
     {
       if (s_Instance is not null) return;
+      UI = FindObjectOfType<UI_Manager>();
 
       var go = GameObject.Find("@Managers");
       if (go is null)
