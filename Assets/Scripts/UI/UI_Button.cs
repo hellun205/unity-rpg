@@ -6,20 +6,20 @@ namespace UI
 {
   public class UI_Button : UI_Popup
   {
-    protected override void Awake()
+    public override void Init()
     {
-      base.Awake();
+      base.Init();
+            
       GetBindingEventHandler("point_button").onClick += OnButtonClicked;
+      GetBindingEventHandler("close_button").onClick += _ => ClosePopup();
     }
 
-    private void OnButtonClicked(PointerEventData eventdata)
+    private void OnButtonClicked(PointerEventData eventData)
     {
-      Managers.UI.ClosePopup(this);
       _score++;
       GetBinding<TextMeshProUGUI>("score_text").text = $"score: {_score}";
     }
-
-
+    
     private int _score = 0;
   }
 }
