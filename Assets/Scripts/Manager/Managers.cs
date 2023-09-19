@@ -23,7 +23,7 @@ namespace Manager
     public static ResourceManager Resource => s_resource ??= new ResourceManager();
     public static UI_Manager UI { get; private set; }
 
-    public void Start()
+    public void Awake()
     {
       Init();
     }

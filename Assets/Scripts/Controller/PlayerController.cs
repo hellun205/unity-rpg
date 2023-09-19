@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Manager;
 using UI;
+using UI.Scene;
 using UnityEngine;
 using Util;
 
@@ -38,12 +39,7 @@ namespace Controller
       Managers.Init();
       Managers.Input.MouseAction += MouseAction;
 
-      Managers.UI.ShowPopupUI<UI_Button>("UIButton");
-      Managers.UI.ShowPopupUI<UI_Button>("UIButton");
-      Managers.UI.ShowPopupUI<UI_Button>("UIButton");
-      Managers.UI.ShowPopupUI<UI_Button>("UIButton");
-      Managers.UI.ShowPopupUI<UI_Button>("UIButton");
-      Managers.UI.ShowPopupUI<UI_Button>("UIButton");
+
     }
 
     private void UpdateMoving()

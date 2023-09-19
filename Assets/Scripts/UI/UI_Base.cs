@@ -1,9 +1,11 @@
+using System;
+using Manager;
 using UnityEngine;
 using Util;
 
 namespace UI
 {
-  public class UI_Base : MonoBehaviour
+  public abstract class UI_Base : MonoBehaviour
   {
     protected virtual char bindingCheck => '*';
     protected Bind bind;
@@ -21,5 +23,15 @@ namespace UI
 
     protected UIEventHandler GetBindingEventHandler(string _name)
       => GetBinding(_name).GetEventHandler();
+
+    protected UIEventHandler GetEventHandler()
+      => gameObject.GetEventHandler();
+
+    public abstract void Init();
+    
+    private void Start()
+    {
+      Init();
+    }
   }
 }

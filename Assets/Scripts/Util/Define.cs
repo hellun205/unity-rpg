@@ -17,6 +17,13 @@ namespace Util
       Click,
       Drag
     }
-  
+
+    public enum Scene
+    {
+      Unknown,
+      Login,
+      Lobby,
+      Game
+    }
   }
 }

@@ -8,10 +8,14 @@ namespace Manager
   {
     public T Load<T>(string path) where T : Object
     {
-      return Resources.Load<T>(path) ?? throw new Exception("Failed to load resource path: " + path);
+      return Resources.Load<T>($"Prefabs/{path}") ?? throw new Exception("Failed to load resource path: " + path);
     }
 
     public GameObject Instantiate(string path)
-      => Object.Instantiate(Load<GameObject>(path));
+    {
+      var obj = Object.Instantiate(Load<GameObject>(path));
+      obj.name = obj.name.Replace("(Clone)", "");
+      return obj;
+    }
   }
 }

@@ -1,5 +1,9 @@
 using System.Collections.Generic;
 using Manager;
+using UI.Popup;
+using UI.Scene;
+using UI.SubItem;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace UI
@@ -9,14 +13,14 @@ namespace UI
     private int _order = 0;
     private Stack<UI_Popup> _popupStack = new();
 
-    public Transform root
+    public GameObject root
     {
       get
       {
-        var root = GameObject.Find("@ui_root");
-        if (root == null)
-          root = new GameObject("@ui_root");
-        return root.transform;
+        var r = GameObject.Find("@ui_root");
+        if (r == null)
+          r = new GameObject("@ui_root");
+        return r;
       }
     }
     
@@ -38,18 +42,43 @@ namespace UI
       
     }
 
-    public UI_Popup ShowPopupUI(string prefabName = "UIButton")
+    public UI_Popup ShowPopupUI(string prefabName )
     {
-      var popup = Managers.Resource.Instantiate($"UI/Popup/{prefabName}").GetComponent<UI_Popup>();
+      var popup = Instantiate<UI_Popup>("UI/Popup", prefabName);
       _popupStack.Push(popup);
 
-      popup.transform.SetParent(root);
+      popup.transform.SetParent(root.transform);
       return popup;
     }
 
-    public T ShowPopupUI<T>(string prefabName = "UIButton") where T : Component
-      => ShowPopupUI(prefabName).GetComponent<T>();
+    public T ShowPopupUI<T>(string prefabName ) where T : Component
+      => ShowPopupUI(prefabName).GetOrAddComponent<T>();
 
+    public UI_Scene ShowSceneUI(string prefabName)
+    {
+      var sceneUI = Instantiate<UI_Scene>("UI/Scene", prefabName);
+
+      sceneUI.transform.SetParent(root.transform);
+      return sceneUI;
+    }
+
+    public T ShowSceneUI<T>(string prefabName) where T : Component
+      => ShowSceneUI(prefabName).GetOrAddComponent<T>();
+    
+    public UI_SubItem MakeSubItem(string prefabName, Transform parent = null)
+    {
+      var subItem = Instantiate<UI_SubItem>("UI/SubItem", prefabName);
+      subItem.transform.SetParent(parent != null ? parent : root.transform);
+      return subItem;
+    }
+
+    public T MakeSubItem<T>(string prefabName, Transform parent = null) where T : Component
+      => MakeSubItem(prefabName, parent).GetOrAddComponent<T>();
+
+
+    private T Instantiate<T>(string path, string prefabName) where T : Component
+      => Managers.Resource.Instantiate($"{path}/{prefabName}").GetOrAddComponent<T>();
+    
     public void ClosePopup(UI_Popup popup)
     {
       if (_popupStack.Peek() == popup)
