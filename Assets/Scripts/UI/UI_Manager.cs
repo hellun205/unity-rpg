@@ -74,6 +74,21 @@ namespace UI
 
     public T MakeSubItem<T>(string prefabName, Transform parent = null) where T : Component
       => MakeSubItem(prefabName, parent).GetOrAddComponent<T>();
+    
+    public UI_Base MakeWorldSpaceUI(string prefabName, Transform parent = null)
+    {
+      var go = Instantiate<UI_Base>("UI/WorldSpace", prefabName);
+      go.transform.SetParent(parent != null ? parent : root.transform);
+
+      var canvas = go.GetOrAddComponent<Canvas>();
+      canvas.renderMode = RenderMode.WorldSpace;
+      canvas.worldCamera = Camera.main;
+      
+      return go;
+    }
+
+    public T MakeWorldSpaceUI<T>(string prefabName, Transform parent = null) where T : Component
+      => MakeWorldSpaceUI(prefabName, parent).GetOrAddComponent<T>();
 
 
     private T Instantiate<T>(string path, string prefabName) where T : Component

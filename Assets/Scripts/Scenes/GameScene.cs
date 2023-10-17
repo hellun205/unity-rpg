@@ -1,3 +1,4 @@
+using Controller;
 using Manager;
 using UI.Scene;
 using Util;
@@ -16,8 +17,8 @@ namespace Scenes
     protected override void Init()
     {
       base.Init();
-      
-      Managers.UI.ShowSceneUI<UI_Inven>("UI_Inven");
+      gameObject.GetOrAddComponent<CursorController>();
+      // Managers.UI.ShowSceneUI<UI_Inven>("UI_Inven");
     }
   }
 }

@@ -1,40 +1,57 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Util;
 
 namespace Manager
 {
-  public class InputManager
+  public class InputManager : IClearable
   {
     public Action KeyAction = null;
     public Action<Define.MouseEvent> MouseAction = null;
 
     private bool isPressed;
-    
+    private float pressedTime;
+
     public void OnUpdate()
     {
-      if (Input.anyKey != false)
+      if (EventSystem.current.IsPointerOverGameObject())
+        return;
+
+      if (Input.anyKey)
         KeyAction?.Invoke();
 
-      if (MouseAction != null)
+
+      if (Input.GetMouseButton(0))
       {
-        if (Input.GetMouseButton(0))
+        if (!isPressed)
         {
-          MouseAction.Invoke(Define.MouseEvent.Press);
-          isPressed = true;
+          MouseAction?.Invoke(Define.MouseEvent.PointerDown);
+          pressedTime = Time.time;
         }
-        else
-        {
-          if (isPressed)
-          {
-            MouseAction.Invoke(Define.MouseEvent.Click);
-            isPressed = false;
-          }
-        }
-      } else
-      {
-        
+
+        MouseAction?.Invoke(Define.MouseEvent.Press);
+        isPressed = true;
       }
+      else
+      {
+        if (isPressed)
+        {
+          if (Time.time - pressedTime < 0.2f)
+            MouseAction?.Invoke(Define.MouseEvent.Click);
+          MouseAction?.Invoke(Define.MouseEvent.PointerUp);
+          
+        }
+
+        isPressed = false;
+        pressedTime = 0;
+      }
+    }
+
+    public void Clear()
+    {
+      KeyAction = null;
+      MouseAction = null;
     }
   }
 }
